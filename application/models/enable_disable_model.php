@@ -98,20 +98,24 @@ class Enable_disable_model extends CI_Model {
 				if($this->db->query($update))//checks if the update has been implemented
 				{
 					echo "<br />Update has been completed.<br />";
+					return true;
 				}
 				else
 				{
 					echo "<br />Update has encountered an error.<br />";
+					return false;
 				}
 			}
 			else
 			{
 				echo "<br />Search returned with multiple results. Please try again.<br />";
+				return false;
 			}
 		}
 		else
 		{
 			echo "<br />Search returned with zero results. Please try again.<br />";
+			return false;
 		}
 	}
 
@@ -125,10 +129,12 @@ class Enable_disable_model extends CI_Model {
 		if($this->db->query($update))//checks if the update has been implemented
 		{
 			echo "<br />Update has been completed.<br />";
+				return true;
 		}
 		else
 		{
 			echo "<br />Update has encountered an error.<br />";
+			return false;
 		}
 	}
 
@@ -151,20 +157,24 @@ class Enable_disable_model extends CI_Model {
 				if($this->db->simple_query($update))//checks if the update has been implemented
 				{
 					echo "<br />Update has been completed.<br />";
+					return true;
 				}
 				else
 				{
 					echo "<br />Update has encountered an error.<br />";
+					return false;
 				}
 			}
 			else
 			{
 				echo "<br />Search returned with multiple results. Please try again.<br />";
+				return false;
 			}
 		}
 		else
 		{
 			echo "<br />Search returned with zero results. Please try again.<br />";
+			return false;
 		}
 	}
 

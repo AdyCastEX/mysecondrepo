@@ -61,8 +61,8 @@ class Enable_disable extends CI_Controller {
 		$action = "activate";//hardcoded
 
 		$this->load->model('enable_disable_model');//loads model
-		$this->enable_disable_model->activate($username, $student_no, $email);//calls function activate
-		$this->enable_disable_model->log($admin, $username, $email, $action);//calls function log from model
+		if($this->enable_disable_model->activate($username, $student_no, $email))//calls function activate
+			$this->enable_disable_model->log($admin, $username, $email, $action);//calls function log from model if activate returns true
 		$result = $this->enable_disable_model->runQuery($this->session->userdata('sql'));	//refreshes
 		$array['result'] = $result;															//page
 		$this->load->view('enable_disable_view', $array);									//with same query
@@ -77,8 +77,8 @@ class Enable_disable extends CI_Controller {
 		$action = "enable";//hardcoded
 
 		$this->load->model('enable_disable_model');//loads model
-		$this->enable_disable_model->enable($username, $email);//calls function enable from model
-		$this->enable_disable_model->log($admin, $username, $email, $action);//calls function log from model
+		if($this->enable_disable_model->enable($username, $email))//calls function enable from model
+			$this->enable_disable_model->log($admin, $username, $email, $action);//calls function log from model if enable returns true
 		$result = $this->enable_disable_model->runQuery($this->session->userdata('sql'));	//refreshes
 		$array['result'] = $result;															//page
 		$this->load->view('enable_disable_view', $array);									//with the same query
@@ -93,8 +93,8 @@ class Enable_disable extends CI_Controller {
 		$action = "disable";//hardcoded
 
 		$this->load->model('enable_disable_model');//loads model
-		$this->enable_disable_model->disable($username, $student_no, $email);//calls function disable from model
-		$this->enable_disable_model->log($admin, $username, $email, $action);//calls function log from model
+		if($this->enable_disable_model->disable($username, $student_no, $email))//calls function disable from model
+			$this->enable_disable_model->log($admin, $username, $email, $action);//calls function log from model if disable returns true
 		$result = $this->enable_disable_model->runQuery($this->session->userdata('sql'));	//refreshes
 		$array['result'] = $result;															//page
 		$this->load->view('enable_disable_view', $array);									//with same query
