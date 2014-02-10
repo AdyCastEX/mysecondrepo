@@ -11,17 +11,17 @@ class Update_book extends CI_Controller {
 		echo "tada";
 		$data['book_no'] = $_GET['id']; 
 		$this->load->model('reserve_model');
-		$this->reserve_model->dequeue($data['book_no']);
-		// get from ajax
-		$data['username_user'] = "edzerium";
-		$data['email'] = "dzerium@gmail.com";
-		$data['username_admin'] = "admin";
-		$data['transaction_no'] = "transaction no";
-		$this->load->model('update_book_model');		//loading of the updateBook_model
+		$q = $this->reserve_model->dequeue($data['book_no']);
+		$row = $q->row();
+		$data['book_no'] = $row->book_no;
+		$data['username_user'] =  $row->username;
+		$data['email'] =  $row->email;
+		$data['username_admin'] = "admin"; // get from session
 
-	//	$this->update_book_model->lend($data);              //we call the lend function which updates the status of the book from reserved to borrowed
-	//	$this->update_book_model->insertLend($data);			//we call this function to insert into the log the whole transaction
-	//	$this->load->view('confirmation_view');				// this is not yet finish
+		$this->load->model('update_book_model');		//loading of the updateBook_model
+		$this->update_book_model->lend($data);              //we call the lend function which updates the status of the book from reserved to borrowed
+		$this->update_book_model->insertLend($data);			//we call this function to insert into the log the whole transaction
+			// this is not yet finish
 
 
 	//	$this->index(); 	 			// returns to the indexpage of the controller in the actual implementation, this should return to the search results
