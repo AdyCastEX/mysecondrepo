@@ -10,7 +10,7 @@ class Enable_disable_model extends CI_Model {
 		/*
 			creates query according to the search parameters submitted by the user
 		*/
-		$sql = "SELECT * FROM user" ; //string for query
+		$sql = "SELECT * FROM user"; //string for query
 
 		Switch($field['field'])
 		{
@@ -52,7 +52,12 @@ class Enable_disable_model extends CI_Model {
 		}		
 
 		if($field['status'] != "all")
-			$sql = $sql." AND status LIKE '".$field['status']."'";
+		{
+			if($sql != "SELECT * FROM user")
+				$sql = $sql." AND status LIKE '".$field['status']."'";
+			else
+				$sql = $sql." WHERE status LIKE '".$field['status']."'";
+		}
 
 		$sql = $sql." ORDER BY usertype,sex";
 
