@@ -1,5 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /*
+	Author: Billy Joel Arlo T. Zarate
 	This document is the controller of the search module for user accounts
 */
 class Enable_disable extends CI_Controller {
@@ -13,7 +14,7 @@ class Enable_disable extends CI_Controller {
 
 	public function index()
 	{
-		$this->load->view('enable_disable_view');
+		$this->load->view('enable_disable_view');//loads the view
 	}
 
 	public function search()
@@ -44,49 +45,59 @@ class Enable_disable extends CI_Controller {
 		}
 		$data['status'] = $_POST["status"];
 		$this->load->model('enable_disable_model');
-		$this->session->set_userdata('sql', $this->enable_disable_model->generateQuery($data));
-		$result = $this->enable_disable_model->runQuery($this->session->userdata('sql'));
-		$array['result'] = $result;
-		$this->load->view('enable_disable_view', $array);
+		$this->session->set_userdata('sql', $this->enable_disable_model->generateQuery($data));//puts the sql query to the session
+		$result = $this->enable_disable_model->runQuery($this->session->userdata('sql'));//gets the result from the query
+		$array['result'] = $result;							//passes the result to the view 
+		$this->load->view('enable_disable_view', $array);	//loads the view with the results
 	}
 
 	public function activate($username, $student_no, $email)
 	{
-		$admin = "team3";
-		$action = "activate";
+		/*
+			activates a user account
+		*/
 
-		$this->load->model('enable_disable_model');
-		$this->enable_disable_model->activate($username, $student_no, $email);
-		$this->enable_disable_model->log($admin, $username, $email, $action);
-		$result = $this->enable_disable_model->runQuery($this->session->userdata('sql'));
-		$array['result'] = $result;
-		$this->load->view('enable_disable_view', $array);
+		$admin = "team3";//hardcoded
+		$action = "activate";//hardcoded
+
+		$this->load->model('enable_disable_model');//loads model
+		$this->enable_disable_model->activate($username, $student_no, $email);//calls function activate
+		$this->enable_disable_model->log($admin, $username, $email, $action);//calls function log from model
+		$result = $this->enable_disable_model->runQuery($this->session->userdata('sql'));	//refreshes
+		$array['result'] = $result;															//page
+		$this->load->view('enable_disable_view', $array);									//with same query
 	}
 
 	public function enable($username, $email)
 	{
-		$admin = "team3";
-		$action = "enable";
+		/*
+			enables a user account
+		*/
+		$admin = "team3";//hardcoded
+		$action = "enable";//hardcoded
 
-		$this->load->model('enable_disable_model');
-		$this->enable_disable_model->enable($username, $email);
-		$this->enable_disable_model->log($admin, $username, $email, $action);
-		$result = $this->enable_disable_model->runQuery($this->session->userdata('sql'));
-		$array['result'] = $result;
-		$this->load->view('enable_disable_view', $array);
+		$this->load->model('enable_disable_model');//loads model
+		$this->enable_disable_model->enable($username, $email);//calls function enable from model
+		$this->enable_disable_model->log($admin, $username, $email, $action);//calls function log from model
+		$result = $this->enable_disable_model->runQuery($this->session->userdata('sql'));	//refreshes
+		$array['result'] = $result;															//page
+		$this->load->view('enable_disable_view', $array);									//with the same query
 	}
 
 	public function disable($username, $student_no, $email)
 	{
-		$admin = "team3";
-		$action = "disable";
+		/*
+			disables a user account
+		*/
+		$admin = "team3";//hardcoded
+		$action = "disable";//hardcoded
 
-		$this->load->model('enable_disable_model');
-		$this->enable_disable_model->disable($username, $student_no, $email);
-		$this->enable_disable_model->log($admin, $username, $email, $action);
-		$result = $this->enable_disable_model->runQuery($this->session->userdata('sql'));
-		$array['result'] = $result;
-		$this->load->view('enable_disable_view', $array);
+		$this->load->model('enable_disable_model');//loads model
+		$this->enable_disable_model->disable($username, $student_no, $email);//calls function disable from model
+		$this->enable_disable_model->log($admin, $username, $email, $action);//calls function log from model
+		$result = $this->enable_disable_model->runQuery($this->session->userdata('sql'));	//refreshes
+		$array['result'] = $result;															//page
+		$this->load->view('enable_disable_view', $array);									//with same query
 	}
 }
 

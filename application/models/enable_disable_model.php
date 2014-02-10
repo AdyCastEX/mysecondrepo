@@ -1,11 +1,15 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /*
+	Author: Billy Joel Arlo T. Zarate
 	Class for queries and database management
 */
 class Enable_disable_model extends CI_Model {
 
 	public function generateQuery($field)
 	{
+		/*
+			creates query according to the search parameters submitted by the user
+		*/
 		$sql = "SELECT * FROM user" ; //string for query
 
 		Switch($field['field'])
@@ -68,7 +72,7 @@ class Enable_disable_model extends CI_Model {
 		{
 			foreach($array->result() as $row)
 			{
-				$data[] = $row;
+				$data[] = $row;//for integrating with ajax code
 			}
 
 			return $data;
@@ -114,7 +118,7 @@ class Enable_disable_model extends CI_Model {
 	public function enable($username, $email)
 	{
 		/*
-			this function validates and activates accounts
+			this function enables accounts
 		*/
 		$update = "UPDATE user SET status = 'enabled' WHERE username LIKE '".$username."' AND email LIKE '".$email."'";
 		
@@ -131,7 +135,7 @@ class Enable_disable_model extends CI_Model {
 	public function disable($username, $student_no, $email)
 	{
 		/*
-			this function validates and activates accounts
+			this function disables accounts
 		*/
 
 		$sql = "SELECT * FROM our WHERE student_no LIKE '".$student_no."'";
@@ -166,6 +170,9 @@ class Enable_disable_model extends CI_Model {
 
 	public function log($admin, $username, $email, $action)
 	{
+		/*
+			logs the changes made into the database
+		*/
 		$insert = "INSERT INTO account_history(username_user, username_admin, email, action) VALUES ('".$username."','".$admin."','".$email."','".$action."')";
 		
 		if($this->db->query($insert))//checks if the update has been implemented
