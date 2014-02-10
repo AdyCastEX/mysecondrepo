@@ -10,7 +10,7 @@
 <head>
     <title><?php echo $title ?></title>
 
-    <script src="http://localhost/myfirstrepo/jquery-1.11.0.js"></script>
+    <script src="http://localhost/mysecondrepo/jquery-1.11.0.js"></script>
     <script name="input_validation_add">
         var str, msg;
         $(document).ready(function(){

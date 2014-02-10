@@ -71,7 +71,7 @@
 				?>
           	</div>
 		</div>
-		<script type="text/javascript" src = <?php echo JS."jquery-1.9.1.min"?>></script>
+		
 		<script type = "text/javascript">
 			function changeTextBox(value){ // This function checks the value of the text box
 				if(value=='name'){
