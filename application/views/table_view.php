@@ -40,8 +40,8 @@
                                             echo "<span><a ";
 
                                             // Lend , Return Button
-                                            if ($row->status == "reserved")  echo "href='#' bookno='{$row->book_no}'    onclick=\"window.location.href='http://localhost/myfirstrepo/index.php/update_book/lend/?id={$row->book_no}'\">Lend</a>";
-                                            elseif ($row->status == "borrowed") echo "href='#' bookno='{$row->book_no}' onclick=\"window.location.href='http://localhost/myfirstrepo/index.php/update_book/received/?id={$row->book_no}'\">Return</a>";
+                                            if ($row->status == "reserved")  echo "href='#' bookno='{$row->book_no}'    onclick=\"window.location.href='http://localhost/mysecondrepo/index.php/update_book/lend/?id={$row->book_no}'\">Lend</a>";
+                                            elseif ($row->status == "borrowed") echo "href='#' bookno='{$row->book_no}' onclick=\"window.location.href='http://localhost/mysecondrepo/index.php/update_book/received/?id={$row->book_no}'\">Return</a>";
                                             else echo "'>(" . $row->status . ")";
 
                                             echo "</span>";
