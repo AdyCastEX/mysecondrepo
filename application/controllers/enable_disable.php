@@ -41,11 +41,14 @@ class Enable_disable extends CI_Controller {
 				break;
 			}
 		}
-		$data['status'] = $_POST["status"];
+		$data['status'] = "pending";
 		$this->load->model('enable_disable_model');
 		$result = $this->enable_disable_model->runQuery($this->enable_disable_model->generateQuery($data));
-		$array['result'] = $result;
-		$this->load->view('enable_disable_view', $array);
+		//$array['result'] = $result;
+		//$this->load->view('enable_disable_view', $array);
+		//var_dump($result);
+		echo json_encode($result);
+
 	}
 }
 

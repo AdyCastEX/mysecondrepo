@@ -45,7 +45,11 @@ class Enable_disable_model extends CI_Model {
 
 		if ($array->num_rows() > 0)
 		{
-			return $array;
+			foreach($array->result() as $row)
+			{
+				$data[] = $row;
+			}
+			return $data;
 		}
 	}
 
