@@ -8,6 +8,7 @@ class Enable_disable extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->helper('form');//loads the form helper
+		$this->load->library('session');//loads the session library
 	}
 
 	public function index()
@@ -43,7 +44,47 @@ class Enable_disable extends CI_Controller {
 		}
 		$data['status'] = $_POST["status"];
 		$this->load->model('enable_disable_model');
-		$result = $this->enable_disable_model->runQuery($this->enable_disable_model->generateQuery($data));
+		$this->session->set_userdata('sql', $this->enable_disable_model->generateQuery($data));
+		$result = $this->enable_disable_model->runQuery($this->session->userdata('sql'));
+		$array['result'] = $result;
+		$this->load->view('enable_disable_view', $array);
+	}
+
+	public function activate($username, $student_no, $email)
+	{
+		$admin = "team3";
+		$action = "activate";
+
+		$this->load->model('enable_disable_model');
+		$this->enable_disable_model->activate($username, $student_no, $email);
+		$this->enable_disable_model->log($admin, $username, $email, $action);
+		$result = $this->enable_disable_model->runQuery($this->session->userdata('sql'));
+		$array['result'] = $result;
+		$this->load->view('enable_disable_view', $array);
+	}
+
+	public function enable($username, $email)
+	{
+		$admin = "team3";
+		$action = "enable";
+
+		$this->load->model('enable_disable_model');
+		$this->enable_disable_model->enable($username, $email);
+		$this->enable_disable_model->log($admin, $username, $email, $action);
+		$result = $this->enable_disable_model->runQuery($this->session->userdata('sql'));
+		$array['result'] = $result;
+		$this->load->view('enable_disable_view', $array);
+	}
+
+	public function disable($username, $student_no, $email)
+	{
+		$admin = "team3";
+		$action = "disable";
+
+		$this->load->model('enable_disable_model');
+		$this->enable_disable_model->disable($username, $student_no, $email);
+		$this->enable_disable_model->log($admin, $username, $email, $action);
+		$result = $this->enable_disable_model->runQuery($this->session->userdata('sql'));
 		$array['result'] = $result;
 		$this->load->view('enable_disable_view', $array);
 	}

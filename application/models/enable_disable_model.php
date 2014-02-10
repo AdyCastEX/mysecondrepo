@@ -11,19 +11,38 @@ class Enable_disable_model extends CI_Model {
 		Switch($field['field'])
 		{
 			Case "name" : {
-				$sql = $sql." WHERE name_first LIKE '".$field['fname']."' OR name_middle LIKE '".$field['mname']."' OR name_last LIKE '".$field['lname']."'";
+				if($field['fname'] != '' || $field['mname'] != '' || $field['lname'] != '')
+					$sql = $sql." WHERE ";
+				
+				if($field['fname'] != '')
+					$sql = $sql."name_first LIKE '".$field['fname']."'";
+
+				if($field['fname'] != '' && $field['mname'] != '')
+					$sql = $sql." OR ";
+				
+				if($field['mname'] != '')
+					$sql = $sql."name_middle LIKE '".$field['mname']."'";
+				
+				if(($field['mname'] != '' && $field['lname'] != '') || ($field['fname'] != '' && $field['lname'] != ''))
+					$sql = $sql." OR ";
+				
+				if($field['lname'] != '')
+					$sql = $sql."name_last LIKE '".$field['lname']."'";
 				break;
 			}
 			Case "stdno" : {
-				$sql = $sql." WHERE student_no LIKE '".$field['student_no']."'";
+				if($field['student_no'] != '')
+					$sql = $sql." WHERE student_no LIKE '".$field['student_no']."'";
 				break;
 			}
 			Case "uname" : {
-				$sql = $sql." WHERE username LIKE '".$field['username']."'";
+				if($field['username'] != '')
+					$sql = $sql." WHERE username LIKE '".$field['username']."'";
 				break;
 			}
 			Case "email" : {
-				$sql = $sql." WHERE email LIKE '".$field['email']."'";
+				if($field['email'] != '')
+					$sql = $sql." WHERE email LIKE '".$field['email']."'";
 				break;
 			}
 		}		
@@ -31,7 +50,9 @@ class Enable_disable_model extends CI_Model {
 		if($field['status'] != "all")
 			$sql = $sql." AND status LIKE '".$field['status']."'";
 
-		$sql = $sql." GROUP BY usertype,sex";
+		$sql = $sql." ORDER BY usertype,sex";
+
+		echo $sql;
 
 		return $sql;
 	}
@@ -45,7 +66,12 @@ class Enable_disable_model extends CI_Model {
 
 		if ($array->num_rows() > 0)
 		{
-			return $array;
+			foreach($array->result() as $row)
+			{
+				$data[] = $row;
+			}
+
+			return $data;
 		}
 	}
 
@@ -55,7 +81,7 @@ class Enable_disable_model extends CI_Model {
 			this function validates and activates accounts
 		*/
 
-		$sql = "SELECT * FROM our_data WHERE student_no LIKE '".$student_no."'";
+		$sql = "SELECT * FROM our WHERE student_no LIKE '".$student_no."'";
 
 		$array = $this->db->query($sql);//checks the our_data for a student
 
@@ -63,9 +89,9 @@ class Enable_disable_model extends CI_Model {
 		{
 			if ($array->num_rows() == 1)//checks if search returned with a valid result
 			{
-				$update = "UPDATE user SET('status' = enabled) WHERE username LIKE '".$username."' AND email LIKE '".$email."'";
+				$update = "UPDATE user SET status = 'enabled' WHERE username LIKE '".$username."' AND email LIKE '".$email."'";
 
-				if($this->db->simple_query($update))//checks if the update has been implemented
+				if($this->db->query($update))//checks if the update has been implemented
 				{
 					echo "<br />Update has been completed.<br />";
 				}
@@ -90,9 +116,9 @@ class Enable_disable_model extends CI_Model {
 		/*
 			this function validates and activates accounts
 		*/
-		$update = "UPDATE user SET('status' = enabled) WHERE username LIKE '".$username."' AND email LIKE '".$email."'";
+		$update = "UPDATE user SET status = 'enabled' WHERE username LIKE '".$username."' AND email LIKE '".$email."'";
 		
-		if($this->db->simple_query($update))//checks if the update has been implemented
+		if($this->db->query($update))//checks if the update has been implemented
 		{
 			echo "<br />Update has been completed.<br />";
 		}
@@ -102,13 +128,13 @@ class Enable_disable_model extends CI_Model {
 		}
 	}
 
-	public function disabled($username, $student_no, $email)
+	public function disable($username, $student_no, $email)
 	{
 		/*
 			this function validates and activates accounts
 		*/
 
-		$sql = "SELECT * FROM our_data WHERE student_no LIKE '".$student_no."'";
+		$sql = "SELECT * FROM our WHERE student_no LIKE '".$student_no."'";
 
 		$array = $this->db->query($sql);//checks the our_data for a student
 
@@ -116,7 +142,7 @@ class Enable_disable_model extends CI_Model {
 		{
 			if ($array->num_rows() == 1)//checks if search returned with a valid result
 			{
-				$update = "UPDATE user SET('status' = disabled) WHERE username LIKE '".$username."' AND email LIKE '".$email."'";
+				$update = "UPDATE user SET status = 'disabled' WHERE username LIKE '".$username."' AND email LIKE '".$email."'";
 
 				if($this->db->simple_query($update))//checks if the update has been implemented
 				{
@@ -140,11 +166,9 @@ class Enable_disable_model extends CI_Model {
 
 	public function log($admin, $username, $email, $action)
 	{
-		$time = "M d, Y H:i:s";
-
-		$insert = "INSERT INTO account_history(username_user, username_admin, email, action) VALUES ('".$username."','".$admin."','".$email."','".$action."'";
+		$insert = "INSERT INTO account_history(username_user, username_admin, email, action) VALUES ('".$username."','".$admin."','".$email."','".$action."')";
 		
-		if($this->db->simple_query($insert))//checks if the update has been implemented
+		if($this->db->query($insert))//checks if the update has been implemented
 		{
 			echo "<br />Insert has been completed.<br />";
 		}
