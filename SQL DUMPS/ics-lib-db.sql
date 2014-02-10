@@ -31,10 +31,10 @@ USE `ics-lib-db`;
 CREATE TABLE IF NOT EXISTS `account_history` (
   `username_user` varchar(18) NOT NULL,
   `username_admin` varchar(18) NOT NULL,
-  `email` varchar(24) NOT NULL,
+  `email` varchar(55) NOT NULL,
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `action` enum('enable','disable','activate') NOT NULL,
-  PRIMARY KEY (`username_user`,`username_admin`,`email`),
+  PRIMARY KEY (`username_user`,`username_admin`,`email`,`date`),
   KEY `account_history_username_admin` (`username_admin`),
   KEY `account_history_email` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
