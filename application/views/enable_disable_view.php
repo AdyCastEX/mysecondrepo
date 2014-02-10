@@ -27,31 +27,31 @@
           			if(isset($result))//checks if $result not null
           			{
 	          			echo "<table border='1'><tr><th>Username</th><th>First name</th><th>Middle name</th><th>Last name</th><th>Course</th><th>College</th><th>action</th></tr>";
-						foreach ($result->result_array() as $row)
+						foreach ($result as $row)
 						{
 							echo "<tr>";
-							echo "<td>".$row['username']."</td>";
-							echo "<td>".$row['name_first']."</td>";
-							echo "<td>".$row['name_middle']."</td>";
-							echo "<td>".$row['name_last']."</td>";
-							echo "<td>".$row['course']."</td>";
-							echo "<td>".$row['college']."</td>";
+							echo "<td>".$row->username."</td>";
+							echo "<td>".$row->name_first."</td>";
+							echo "<td>".$row->name_middle."</td>";
+							echo "<td>".$row->name_last."</td>";
+							echo "<td>".$row->course."</td>";
+							echo "<td>".$row->college."</td>";
 							echo "<td>";
-							switch($row['status'])//creates a button depending on user status
+							switch($row->status)//creates a button depending on user status
 							{
 								case "pending":
 								{
-									echo form_button('activate','Activate');//creates a button named activate
+									echo '<a href="http://localhost/mysecondrepo/index.php/enable_disable/activate/'.$row->username.'/'.$row->student_no.'/'.$row->email.'"> <input type="button" value="Activate"/> </a>';//creates a button named activate
 									break;
 								}
 								case "enabled":
 								{
-									echo form_button('disable','Disable');//creates a button named disable
+									echo '<a href="http://localhost/mysecondrepo/index.php/enable_disable/disable/'.$row->username.'/'.$row->student_no.'/'.$row->email.'"> <input type="button" value="Disable"/> </a>';//creates a button named disable
 									break;
 								}
 								case "disabled":
 								{
-									echo form_button('enable','Enable');//creates a button named enable
+									echo '<a href="http://localhost/mysecondrepo/index.php/enable_disable/enable/'.$row->username.'/'.$row->email.'"> <input type="button" value="Enable"/> </a>';//creates a button named enable
 									break;
 								}
 							}
