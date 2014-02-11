@@ -165,7 +165,7 @@
 						};
 				}
 
-				console.log(json_data);
+				//console.log(json_data);
 
 				$.ajax({
 					url : 'http://localhost/mysecondrepo/index.php/enable_disable/search', 
@@ -177,12 +177,15 @@
 						
 						
 						var json_array = data;
-						var array_json = $.parseJSON(json_array);
-						console.log(array_json);
+						//var array_json = $.parseJSON(json_array);
+						console.log(json_array);
 						$('#result').append('<table id="result_table"></table>');
 
-						$.each(array_json, function(){
-							$('#result_table').append('<tr><td>' +this.username+ '</td><td>' +this.name_first+ '</td><td>' +this.name_middle+ '</td><td>' +this.name_last+ '</td><td>' +this.course+ '</td><td>' +this.college+ '</td><td>' +this.status1+ '</td></tr>');
+						$.each(json_array, function(){
+							$('#result_table').append('<tr class="row"></tr>')
+							$('.row').append('<td>' +this.username+ '</td><td>' +this.name_first+ '</td><td>' +this.name_middle+ '</td><td>' +this.name_last+ '</td><td>' +this.course+ '</td><td>' +this.college+ '</td><td>' +this.status+ '</td>');
+	
+							$('.row').append('<td><input type="button" value="Some Button" /></td>')
 						});
 
 						
