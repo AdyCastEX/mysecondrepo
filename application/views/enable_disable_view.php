@@ -1,13 +1,5 @@
-<!-- This document is the view of the search module for user accounts-->
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<title>ICS Library</title>
-		
-	</head>
-
-	<body>
+<?php //Author: Cyril Bravo
+	  //Description: This document is the actual view of enable/disable?>
 		<div id="container">
 			<h1>ICS Library</h1>
 		  	<div id="body">
@@ -71,26 +63,54 @@
 				?>
           	</div>
 		</div>
-		
+		<script type="text/javascript" src = "http://localhost/mysecondrepo/jquery-1.11.0.js"></script>
 		<script type = "text/javascript">
-			function changeTextBox(value){ // This function checks the value of the text box
+			function changeTextBox(value){ // This function changes the field/s depending on the search category
 				if(value=='name'){
-					string = "<input type='text' placeholder='Enter first name' name='firstname'/>";
-	            	string+= "<input type='text' placeholder='Enter middle name' name='middlename'/>";
-	            	string+= "<input type='text' placeholder='Enter last name' name='lastname'/>";
-	            	document.getElementById("divtext").innerHTML = string; 
+					string = "<input id='enterFname'/> <input id='enterMname'/> <input id='enterLname'/>"; //creates 3 fields for name
+	            	$('#divtext').html(string); // innerhtml equivalent in jquery
+	            	$('#divtext #enterFname').attr({ // set attributes for name
+ 						'name': 'firstname',
+ 						'type': 'text',
+ 						'placeholder': 'Enter first name'
+ 					});
+	            	$('#divtext #enterMname').attr({
+ 						'name': 'middlename',
+ 						'type': 'text',
+ 						'placeholder': 'Enter middle name'
+ 					});
+	            	$('#divtext #enterLname').attr({
+ 						'name': 'lastname',
+ 						'type': 'text',
+ 						'placeholder': 'Enter last name'
+ 					});
 				}
 				else if(value=='stdno'){
-					string = "<input type='text' placeholder='Enter student number' name='studentno'/>";
-					document.getElementById("divtext").innerHTML = string;
+					string = "<input id='enterStdno'/>"; //creates field for studno
+	            	$('#divtext').html(string);
+	            	$('#divtext #enterStdno').attr({ // set attributes for studno
+ 						'name': 'studentno',
+ 						'type': 'text',
+ 						'placeholder': 'Enter student number'
+ 					});
 				}
 				else if(value=='uname'){
-					string = "<input type='text' placeholder='Enter username' name='username'/>";
-					document.getElementById("divtext").innerHTML = string;
+					string = "<input id='enterUname'/>"; //creates field for username
+	            	$('#divtext').html(string);
+	            	$('#divtext #enterUname').attr({ // set attributes for username
+ 						'name': 'username',
+ 						'type': 'text',
+ 						'placeholder': 'Enter username'
+ 					});
 				}
 				else if(value=='email'){
-					string = "<input type='text' placeholder='Enter email address' name='emailadd'/>";
-					document.getElementById("divtext").innerHTML = string;
+					string = "<input id='enterEmail'/>"; //creates field for email
+	            	$('#divtext').html(string);
+	            	$('#divtext #enterEmail').attr({ // set attributes for email
+ 						'name': 'emailadd',
+ 						'type': 'text',
+ 						'placeholder': 'Enter email address'
+ 					});
 				}
 			}
 		</script>
@@ -98,5 +118,4 @@
 		<script type="text/javascript">
 			
 		</script>
-	</body>
-</html>
+<?php //end of file enable_disable_view ?>
