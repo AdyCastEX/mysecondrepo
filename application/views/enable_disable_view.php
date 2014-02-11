@@ -183,9 +183,21 @@
 
 						$.each(json_array, function(){
 							$('#result_table').append('<tr class="row"></tr>')
-							$('.row').append('<td>' +this.username+ '</td><td>' +this.name_first+ '</td><td>' +this.name_middle+ '</td><td>' +this.name_last+ '</td><td>' +this.course+ '</td><td>' +this.college+ '</td><td>' +this.status+ '</td>');
-	
-							$('.row').append('<td><input type="button" value="Some Button" /></td>')
+							$('.row').append('<td>' +this.username+ '</td><td>' +this.name_first+ '</td><td>' +this.name_middle+ '</td><td>' +this.name_last+ '</td><td>' +this.course+ '</td><td>' +this.college+ '</td><td>');
+							if(this.status === "pending")
+							{
+								$('.row').append('<a href="http://localhost/mysecondrepo/index.php/enable_disable/activate/'+this.username+'/'+this.student_no+'/'+ this.email + '"'+'>activate</a>');
+							}
+
+							else if(this.status === "enabled")
+							{
+								$('.row').append('<a href="http://localhost/mysecondrepo/index.php/enable_disable/disable/'+this.username+'/'+this.student_no+'/'+ this.email + '"'+'>disable</a>');
+							}
+
+							else if(this.status === "disabled")
+							{
+								$('.row').append('<a href="http://localhost/mysecondrepo/index.php/enable_disable/enable/'+this.username+'/'+this.student_no+'/'+ this.email + '"'+'>enable</a>');
+							}
 						});
 
 						
