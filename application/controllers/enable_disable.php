@@ -68,7 +68,7 @@ class Enable_disable extends CI_Controller {
 		$this->load->view('enable_disable_view', $array);									//with same query
 	}
 
-	public function enable($username, $email)
+	public function enable($username, $student_no, $email)
 	{
 		/*
 			enables a user account

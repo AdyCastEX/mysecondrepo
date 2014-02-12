@@ -41,17 +41,17 @@
 							{
 								case "pending":
 								{
-									echo '<a href="http://localhost/mysecondrepo/index.php/enable_disable/activate/'.$row->username.'/'.$row->student_no.'/'.$row->email.'"> <input type="button" value="Activate"/> </a>';//creates a button named activate
+									echo  "<input type='button' value='Activate' class='Activate_button' username='{$row->username}' student_no='{$row->student_no}' email='{$row->email}'/>";//creates a button named activate
 									break;
 								}
 								case "enabled":
 								{
-									echo '<a href="http://localhost/mysecondrepo/index.php/enable_disable/disable/'.$row->username.'/'.$row->student_no.'/'.$row->email.'"> <input type="button" value="Disable"/> </a>';//creates a button named disable
+									echo "<input type='button' value='Disable' class='Disable_button' username='{$row->username}' student_no='{$row->student_no}' email='{$row->email}'/>";//creates a button named disable
 									break;
 								}
 								case "disabled":
 								{
-									echo '<a href="http://localhost/mysecondrepo/index.php/enable_disable/enable/'.$row->username.'/'.$row->email.'"> <input type="button" value="Enable"/> </a>';//creates a button named enable
+									echo "<input type='button' value='Enable' class='Enable_button' username='{$row->username}' student_no='{$row->student_no}' email='{$row->email}'/>";//creates a button named enable
 									break;
 								}
 							}
@@ -116,6 +116,64 @@
 		</script>
 
 		<script type="text/javascript">
+			function clicker()
+			{
+				console.log($(this).attr('username'));
+				console.log($(this).attr('student_no'));
+				console.log($(this).attr('email'));
+			}
+
+			function activate_handler()
+			{
+				var username = $(this).attr('username');
+				var student_no = $(this).attr('student_no');
+				var email = $(this).attr('email');
+				$.ajax({
+					url : "http://localhost/mysecondrepo/index.php/enable_disable/activate/"+ username +"/"+ student_no + "/" + email,
+					type : 'POST',
+					dataType : "html",
+					async : true,
+					success: function(data) {
+						console.log("activate handle");
+					}
+				});
+			}
+
+			function disable_handler()
+			{
+				var username = $(this).attr('username');
+				var student_no = $(this).attr('student_no');
+				var email = $(this).attr('email');
+				$.ajax({
+					url : "http://localhost/mysecondrepo/index.php/enable_disable/disable/"+ username +"/"+ student_no + "/" + email,
+					type : 'POST',
+					dataType : "html",
+					async : true,
+					success: function(data) {
+						console.log("ajax success");
+					}
+				});
+			}
+
+			function enable_handler()
+			{
+				var username = $(this).attr('username');
+				var student_no = $(this).attr('student_no');
+				var email = $(this).attr('email');
+				$.ajax({
+					url : "http://localhost/mysecondrepo/index.php/enable_disable/enable/"+ username +"/"+ student_no + "/" + email,
+					type : 'POST',
+					dataType : "html",
+					async : true,
+					success: function(data) {
+						console.log("ajax success");
+					}
+				});
+			}
+
+			$('.Activate_button').on("click",activate_handler);
+			$('.Enable_button').on("click",enable_handler);
+			$('.Disable_button').on("click",disable_handler);
 			
 		</script>
 <?php //end of file enable_disable_view ?>
