@@ -17,13 +17,13 @@
 
                             foreach($table as $row):
                                 echo "<tr>";                               
-                                echo "<td book_data='book_no' align='center'>" . $row->book_no . "</td>";
+                                echo "<td book_data='book_no'  align='center'>" . $row->book_no . "</td>";
                                 echo "<td>" .
-                                        "<div style = 'font:20px Verdana' book_data='book_title'>" . 
+                                        "<div style = 'font:20px Verdana'  book_data='book_title'>" . 
                                             $row->book_title . 
                                         "</div>" . 
                                         
-                                        "<div style = 'font-size:17px' book_data='description'> " . 
+                                        "<div style = 'font-size:17px'  book_data='description'> " . 
                                             $row->description   . "<br>" .  
                                         "</div>" . 
 
@@ -36,12 +36,12 @@
                                             
                                             // Edit , Delete Button
                                             echo "<span><a href='#' bookno='{$row->book_no}' class='edit_button'>Edit</a></span>&nbsp&nbsp&nbsp";
-                                            echo "<span><a href='#' bookno='{$row->book_no}' class='delete_button'>Delete</a></span>&nbsp | &nbsp";
+                                            echo "<span><a href='#' bookno='{$row->book_no}' class='delete_button'>Delet]e</a></span>&nbsp | &nbsp";
                                             echo "<span><a ";
 
                                             // Lend , Return Button
-                                            if ($row->status == "reserved")  echo "href='#' bookno='{$row->book_no}'    onclick=\"window.location.href='http://localhost/mysecondrepo/index.php/update_book/lend/?id={$row->book_no}'\">Lend</a>";
-                                            elseif ($row->status == "borrowed") echo "href='#' bookno='{$row->book_no}' onclick=\"window.location.href='http://localhost/mysecondrepo/index.php/update_book/received/?id={$row->book_no}'\">Return</a>";
+                                            if ($row->status == "reserved")  echo "bookno='{$row->book_no}' class='lendButton' >Lend</a>";
+                                            elseif ($row->status == "borrowed") echo "bookno='{$row->book_no}' class = 'receivedButton'>Return</a>";
                                             else echo "'>(" . $row->status . ")";
 
                                             echo "</span>";
@@ -89,3 +89,49 @@
 
 </table>
 </div>
+<script> // Edzer Padilla
+ $('.lendButton').on('click', lendClick);
+ $('.receivedButton').on('click', receivedClick);
+
+function lendClick(){
+    $this = $(this);
+    $bookno = $this.attr('bookno');
+    $bookauthor = $this.closest('td').find('[book_data = author]').text()
+    $booktitle = $this.closest('td').find('[book_data = book_title]').text()
+    if (confirm('Are you sure you want to lend: \n'+$booktitle+'\n'+$bookno+'\n'+$bookauthor+"?")) {    
+        alert($bookno);
+         $.ajax({
+            url: 'index.php/update_book/lend/',
+            data: {id:$bookno},
+            success: function(data) { 
+                $this.text('Return');
+                $this.off('click').on('click', receivedClick);            }
+        });      
+
+    } else {
+    // Do nothing!
+    }
+
+}
+
+ function receivedClick(){
+    $this = $(this);
+    $bookno = $this.attr('bookno');
+    $bookauthor = $this.closest('td').find('[book_data = author]').text()
+    $booktitle = $this.closest('td').find('[book_data = book_title]').text()
+     if (confirm('Are you sure you want to return: \n'+$booktitle+'\n'+$bookno+'\n'+$bookauthor+"?")) {
+         $.ajax({
+            url: 'index.php/update_book/received/',
+            data: {id:$bookno},
+            success: function(data) { 
+                $this.text('(available)');
+                $this.off('click');
+           // $this.addClass('lendButton'); 
+            }
+        });        
+    } else {
+    // Do nothing!
+    }
+ } 
+</script>
+
