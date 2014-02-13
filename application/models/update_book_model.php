@@ -35,7 +35,7 @@ Class Update_book_model extends CI_Model{
 		$where = "transaction_no = {$data['transaction_no']}"; // where clause
 		$this->db->update('lend', $parameter, $where); // the update query accepts 3 parameters, the table name, values to be updated and the where clause
 		echo $this->db->update_string('lend', $parameter, $where);
-		echo "SUUUUUUUUUUCCCCCCCCCCCCCCCCCCCCEEEEEEEEEEEEEEESSSSSSSSSSSSs";
+
 	}
 	function getTransactionno($data){
 		$q = $this->db->query("SELECT transaction_no FROM lend WHERE

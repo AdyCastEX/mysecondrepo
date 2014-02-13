@@ -3,10 +3,6 @@
 class Update_book extends CI_Controller {
 
 
-	public function index()
-	{
-		echo "hello";
-	}
 	public function lend(){
 		$data['book_no'] = $_GET['id']; 
 		$this->load->model('reserve_model');
@@ -20,9 +16,6 @@ class Update_book extends CI_Controller {
 		$this->load->model('update_book_model');		//loading of the updateBook_model
 		$this->update_book_model->lend($data);              //we call the lend function which updates the status of the book from reserved to borrowed
 		$this->update_book_model->insertLend($data);			//we call this function to insert into the log the whole transaction
-			// this is not yet finish
-
-	//	$this->index(); 	 			// returns to the indexpage of the controller in the actual implementation, this should return to the search results
 	}
 	public function received(){
 	
