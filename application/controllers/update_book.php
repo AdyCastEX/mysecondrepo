@@ -8,7 +8,6 @@ class Update_book extends CI_Controller {
 		echo "hello";
 	}
 	public function lend(){
-		echo "tada";
 		$data['book_no'] = $_GET['id']; 
 		$this->load->model('reserve_model');
 		$q = $this->reserve_model->dequeue($data['book_no']);
@@ -23,7 +22,6 @@ class Update_book extends CI_Controller {
 		$this->update_book_model->insertLend($data);			//we call this function to insert into the log the whole transaction
 			// this is not yet finish
 
-
 	//	$this->index(); 	 			// returns to the indexpage of the controller in the actual implementation, this should return to the search results
 	}
 	public function received(){
@@ -35,7 +33,6 @@ class Update_book extends CI_Controller {
 		$data['transaction_no'] = $this->update_book_model->getTransactionno($data['book_no']);
 		$this->update_book_model->received($data);	// updates the status of the book from borrowed to available
 		$this->update_book_model->updateLend($data);	// writes the whole transaction into log
-		
 	}
 
 
