@@ -1,6 +1,6 @@
 INSERT INTO `ics-lib-db`.`author` (`book_no`, `name`) VALUES ('RS 2134', 'Edzer Padilla');
 INSERT INTO `ics-lib-db`.`author` (`book_no`, `name`) VALUES ('AS 6666', 'Raphael Cosuco');
-INSERT INTO `ics-lib-db`.`author` (`book_no`, `name`) VALUES ('LS 1403', 'Dora D\' Explorer');
+INSERT INTO `ics-lib-db`.`author` (`book_no`, `name`) VALUES ('LS 1403', 'Dora D\' 'Explorer');
 INSERT INTO `ics-lib-db`.`author` (`book_no`, `name`) VALUES ('BR 4421', 'Sasha Grey');
 INSERT INTO `ics-lib-db`.`author` (`book_no`, `name`) VALUES ('DB 5123', 'Mandingo');
 INSERT INTO `ics-lib-db`.`author` (`book_no`, `name`) VALUES ('AC 2114', 'PewDiePie');

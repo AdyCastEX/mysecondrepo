@@ -14,9 +14,7 @@ class Reserve_Model extends CI_Model {
 				book_no LIKE '{$book_no}'");
 		if ($q->num_rows() == 0){
 			return false;
-			echo "1";
 		}else
-			echo "2";
 			return $q;
 	}
 

@@ -133,7 +133,7 @@ CREATE TABLE IF NOT EXISTS `lend` (
   `transaction_no` int(8) NOT NULL AUTO_INCREMENT,
   `book_no` varchar(12) NOT NULL,
   `username_user` varchar(18) NOT NULL,
-  `email` varchar(18) NOT NULL,
+  `email` varchar(55) NOT NULL,
   `date_borrowed` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `date_returned` timestamp NULL DEFAULT NULL,
   `username_admin` varchar(18) NOT NULL,
@@ -189,7 +189,7 @@ CREATE TABLE IF NOT EXISTS `our` (
 CREATE TABLE IF NOT EXISTS `reserves` (
   `book_no` varchar(12) NOT NULL,
   `username` varchar(18) NOT NULL,
-  `email` varchar(24) NOT NULL,
+  `email` varchar(55) NOT NULL,
   `date_reserved` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `rank` smallint(6) NOT NULL,
   PRIMARY KEY (`book_no`,`username`,`email`),

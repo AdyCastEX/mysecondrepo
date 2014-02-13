@@ -125,6 +125,7 @@
 
 			function activate_handler()
 			{
+				//$this = $(this);
 				var username = $(this).attr('username');
 				var student_no = $(this).attr('student_no');
 				var email = $(this).attr('email');
@@ -135,6 +136,7 @@
 					async : true,
 					success: function(data) {
 						console.log("activate handle");
+						
 					}
 				});
 			}
