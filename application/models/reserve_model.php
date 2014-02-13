@@ -9,14 +9,14 @@ class Reserve_Model extends CI_Model {
 	}
 
 	function dequeue($book_no) {
-
 		$q = $this->db->query("SELECT * FROM reserves WHERE
 				rank = (SELECT min(rank) FROM reserves) AND 
 				book_no LIKE '{$book_no}'");
-
-		if ($q->num_rows() == 0)
+		if ($q->num_rows() == 0){
 			return false;
-		else
+			echo "1";
+		}else
+			echo "2";
 			return $q;
 	}
 

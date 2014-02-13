@@ -81,6 +81,13 @@
             if(value == undefined) value = "";
             return '<input type="text" id="edit_'+id+'" value="'+value+'" />';
         }
+        function lendClick(){
+            console.log("lend");
+        }
+        function receivedClick(){
+            console.log("received");
+        }
+
     });
 </script>
 </body>
