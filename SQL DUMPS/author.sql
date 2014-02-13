@@ -1,0 +1,11 @@
+INSERT INTO `ics-lib-db`.`author` (`book_no`, `name`) VALUES ('RS 2134', 'Edzer Padilla');
+INSERT INTO `ics-lib-db`.`author` (`book_no`, `name`) VALUES ('AS 6666', 'Raphael Cosuco');
+INSERT INTO `ics-lib-db`.`author` (`book_no`, `name`) VALUES ('LS 1403', 'Dora D\' Explorer');
+INSERT INTO `ics-lib-db`.`author` (`book_no`, `name`) VALUES ('BR 4421', 'Sasha Grey');
+INSERT INTO `ics-lib-db`.`author` (`book_no`, `name`) VALUES ('DB 5123', 'Mandingo');
+INSERT INTO `ics-lib-db`.`author` (`book_no`, `name`) VALUES ('AC 2114', 'PewDiePie');
+INSERT INTO `ics-lib-db`.`author` (`book_no`, `name`) VALUES ('CR 5312', 'Kuroko');
+INSERT INTO `ics-lib-db`.`author` (`book_no`, `name`) VALUES ('FA 5671', 'Asa Akira');
+INSERT INTO `ics-lib-db`.`author` (`book_no`, `name`) VALUES ('FF 1293', 'Carmella Bing');
+INSERT INTO `ics-lib-db`.`author` (`book_no`, `name`) VALUES ('GG 0098', 'Lisa Ann');
+INSERT INTO `ics-lib-db`.`author` (`book_no`, `name`) VALUES ('AR 1434', 'Shyla Stylez');

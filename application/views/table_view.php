@@ -99,7 +99,6 @@ function lendClick(){
     $bookauthor = $this.closest('td').find('[book_data = author]').text()
     $booktitle = $this.closest('td').find('[book_data = book_title]').text()
     if (confirm('Are you sure you want to lend: \n'+$booktitle+'\n'+$bookno+'\n'+$bookauthor+"?")) {    
-        alert($bookno);
          $.ajax({
             url: 'index.php/update_book/lend/',
             data: {id:$bookno},
