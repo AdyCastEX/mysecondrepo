@@ -26,11 +26,12 @@
           		<?php
           			if(isset($result))//checks if $result not null
           			{
-	          			echo "<table border='1'><tr><th>Username</th><th>First name</th><th>Middle name</th><th>Last name</th><th>Course</th><th>College</th><th>action</th></tr>";
+	          			echo "<table border='1'><tr><th>Username</th><th>Email</th><th>First name</th><th>Middle name</th><th>Last name</th><th>Course</th><th>College</th><th>action</th></tr>";
 						foreach ($result as $row)
 						{
 							echo "<tr>";
 							echo "<td>".$row->username."</td>";
+							echo "<td>".$row->email."</td>";
 							echo "<td>".$row->name_first."</td>";
 							echo "<td>".$row->name_middle."</td>";
 							echo "<td>".$row->name_last."</td>";
@@ -129,16 +130,19 @@
 				var username = $(this).attr('username');
 				var student_no = $(this).attr('student_no');
 				var email = $(this).attr('email');
-				$.ajax({
-					url : "http://localhost/mysecondrepo/index.php/enable_disable/activate/"+ username +"/"+ student_no + "/" + email,
-					type : 'POST',
-					dataType : "html",
-					async : true,
-					success: function(data) {
-						console.log("activate handle");
-						
-					}
-				});
+				var constr = "Are you sure you want to continue?\nUsername: "+username+"\nStudent Number: "+student_no+"\nE-mail: "+email;
+				if(confirm(constr))
+				{
+					$.ajax({
+						url : "http://localhost/mysecondrepo/index.php/enable_disable/activate/"+ username +"/"+ student_no + "/" + email,
+						type : 'POST',
+						dataType : "html",
+						async : true,
+						success: function(data) {
+							$('input[student_no=student_no]').text("Disable");	
+						}
+					});
+				}
 			}
 
 			function disable_handler()
@@ -146,15 +150,20 @@
 				var username = $(this).attr('username');
 				var student_no = $(this).attr('student_no');
 				var email = $(this).attr('email');
-				$.ajax({
-					url : "http://localhost/mysecondrepo/index.php/enable_disable/disable/"+ username +"/"+ student_no + "/" + email,
-					type : 'POST',
-					dataType : "html",
-					async : true,
-					success: function(data) {
-						console.log("ajax success");
-					}
-				});
+				var constr = "Are you sure you want to continue?\nUsername: "+username+"\nStudent Number: "+student_no+"\nE-mail: "+email;
+				if(confirm(constr))
+				{
+					$.ajax({
+						url : "http://localhost/mysecondrepo/index.php/enable_disable/disable/"+ username +"/"+ student_no + "/" + email,
+						type : 'POST',
+						dataType : "html",
+						async : true,
+						success: function(data) {
+							console.log("ajax success");
+
+						}
+					});
+				}
 			}
 
 			function enable_handler()
@@ -162,15 +171,19 @@
 				var username = $(this).attr('username');
 				var student_no = $(this).attr('student_no');
 				var email = $(this).attr('email');
-				$.ajax({
-					url : "http://localhost/mysecondrepo/index.php/enable_disable/enable/"+ username +"/"+ student_no + "/" + email,
-					type : 'POST',
-					dataType : "html",
-					async : true,
-					success: function(data) {
-						console.log("ajax success");
-					}
-				});
+				var constr = "Are you sure you want to continue?\nUsername: "+username+"\nStudent Number: "+student_no+"\nE-mail: "+email;
+				if(confirm(constr))
+				{
+					$.ajax({
+						url : "http://localhost/mysecondrepo/index.php/enable_disable/enable/"+ username +"/"+ student_no + "/" + email,
+						type : 'POST',
+						dataType : "html",
+						async : true,
+						success: function(data) {
+							console.log("ajax success");
+						}
+					});
+				}
 			}
 
 			$('.Activate_button').on("click",activate_handler);

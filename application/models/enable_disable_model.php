@@ -61,8 +61,6 @@ class Enable_disable_model extends CI_Model {
 
 		$sql = $sql." ORDER BY usertype,sex";
 
-		echo $sql;
-
 		return $sql;
 	}
 
@@ -100,28 +98,19 @@ class Enable_disable_model extends CI_Model {
 			{
 				$update = "UPDATE user SET status = 'enabled' WHERE username LIKE '".$username."' AND email LIKE '".$email."'";
 
-				if($this->db->query($update))//checks if the update has been implemented
-				{
-					echo "<br />Update has been completed.<br />";
-					return true;
-				}
-				else
-				{
-					echo "<br />Update has encountered an error.<br />";
-					return false;
-				}
+				$success = $this->db->query($update);//checks if the update has been implemented
 			}
 			else
 			{
-				echo "<br />Search returned with multiple results. Please try again.<br />";
-				return false;
+				$success =  false;
 			}
 		}
 		else
 		{
-			echo "<br />Search returned with zero results. Please try again.<br />";
-			return false;
+			$success =  false;
 		}
+
+		return $success;
 	}
 
 	public function enable($username, $email)
@@ -131,16 +120,9 @@ class Enable_disable_model extends CI_Model {
 		*/
 		$update = "UPDATE user SET status = 'enabled' WHERE username LIKE '".$username."' AND email LIKE '".$email."'";
 		
-		if($this->db->query($update))//checks if the update has been implemented
-		{
-			echo "<br />Update has been completed.<br />";
-				return true;
-		}
-		else
-		{
-			echo "<br />Update has encountered an error.<br />";
-			return false;
-		}
+		$success = $this->db->query($update);//checks if the update has been implemented
+
+		return $success;
 	}
 
 	public function disable($username, $student_no, $email)
@@ -148,39 +130,11 @@ class Enable_disable_model extends CI_Model {
 		/*
 			this function disables accounts
 		*/
+		$update = "UPDATE user SET status = 'disabled' WHERE username LIKE '".$username."' AND email LIKE '".$email."'";
+		
+		$success = $this->db->query($update);//checks if the update has been implemented
 
-		$sql = "SELECT * FROM our WHERE student_no LIKE '".$student_no."'";
-
-		$array = $this->db->query($sql);//checks the our_data for a student
-
-		if ($array->num_rows() > 0)//checks if search returned with any result
-		{
-			if ($array->num_rows() == 1)//checks if search returned with a valid result
-			{
-				$update = "UPDATE user SET status = 'disabled' WHERE username LIKE '".$username."' AND email LIKE '".$email."'";
-
-				if($this->db->simple_query($update))//checks if the update has been implemented
-				{
-					echo "<br />Update has been completed.<br />";
-					return true;
-				}
-				else
-				{
-					echo "<br />Update has encountered an error.<br />";
-					return false;
-				}
-			}
-			else
-			{
-				echo "<br />Search returned with multiple results. Please try again.<br />";
-				return false;
-			}
-		}
-		else
-		{
-			echo "<br />Search returned with zero results. Please try again.<br />";
-			return false;
-		}
+		return $success;
 	}
 
 	public function log($admin, $username, $email, $action)
@@ -190,14 +144,9 @@ class Enable_disable_model extends CI_Model {
 		*/
 		$insert = "INSERT INTO account_history(username_user, username_admin, email, action) VALUES ('".$username."','".$admin."','".$email."','".$action."')";
 		
-		if($this->db->query($insert))//checks if the update has been implemented
-		{
-			echo "<br />Insert has been completed.<br />";
-		}
-		else
-		{
-			echo "<br />Insert has encountered an error.<br />";
-		}
+		$success = $this->db->query($insert);//checks if the insert has been implemented
+
+		return $success;
 	}
 }
 

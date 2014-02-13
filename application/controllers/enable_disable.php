@@ -66,6 +66,8 @@ class Enable_disable extends CI_Controller {
 		$result = $this->enable_disable_model->runQuery($this->session->userdata('sql'));	//refreshes
 		$array['result'] = $result;															//page
 		$this->load->view('enable_disable_view', $array);									//with same query
+		$json = array('success' => $success);
+		echo json_encode($json);
 	}
 
 	public function enable($username, $student_no, $email)
@@ -82,6 +84,8 @@ class Enable_disable extends CI_Controller {
 		$result = $this->enable_disable_model->runQuery($this->session->userdata('sql'));	//refreshes
 		$array['result'] = $result;															//page
 		$this->load->view('enable_disable_view', $array);									//with the same query
+		$json = array('success' => $success);
+		echo json_encode($json);
 	}
 
 	public function disable($username, $student_no, $email)
@@ -98,6 +102,8 @@ class Enable_disable extends CI_Controller {
 		$result = $this->enable_disable_model->runQuery($this->session->userdata('sql'));	//refreshes
 		$array['result'] = $result;															//page
 		$this->load->view('enable_disable_view', $array);									//with same query
+		$json = array('success' => $success);
+		echo json_encode($json);
 	}
 }
 
