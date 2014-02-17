@@ -1,5 +1,7 @@
-<?php //Author: Cyril Bravo
-	  //Description: This document is the actual view of enable/disable?>
+<?php 
+	  //Author: Cyril Bravo
+	  //Description: This document is the actual view of enable/disable
+?>
 		<div id="container">
 			<h1>ICS Library</h1>
 		  	<div id="body">
@@ -66,7 +68,11 @@
 		</div>
 		<script type="text/javascript" src = "http://localhost/mysecondrepo/jquery-1.11.0.js"></script>
 		<script type = "text/javascript">
-			function changeTextBox(value){ // This function changes the field/s depending on the search category
+
+			//Script Author : Cyril Justine D. Bravo
+			//Description : a JQuery script that changes the field/s depending on the search category
+
+			function changeTextBox(value){ 
 				if(value=='name'){
 					string = "<input id='enterFname'/> <input id='enterMname'/> <input id='enterLname'/>"; //creates 3 fields for name
 	            	$('#divtext').html(string); // innerhtml equivalent in jquery
@@ -116,21 +122,18 @@
 			}
 		</script>
 
-		<script type="text/javascript">
-			function clicker()
-			{
-				console.log($(this).attr('username'));
-				console.log($(this).attr('student_no'));
-				console.log($(this).attr('email'));
-			}
 
+		<script type="text/javascript">
+			//Script Author : Carl Adrian P. Castueras
+			//Description : AJAX functions used for to call the activate,enable and disable controllers and then update the page dynamically
+	
 			function activate_handler()
 			{
-				//$this = $(this);
+				$this = $(this);
 				var username = $(this).attr('username');
 				var student_no = $(this).attr('student_no');
 				var email = $(this).attr('email');
-				var constr = "Are you sure you want to continue?\nUsername: "+username+"\nStudent Number: "+student_no+"\nE-mail: "+email;
+				var constr = "Are you sure you want to Activate?\nUsername: "+username+"\nStudent Number: "+student_no+"\nE-mail: "+email;
 				if(confirm(constr))
 				{
 					$.ajax({
@@ -139,7 +142,10 @@
 						dataType : "html",
 						async : true,
 						success: function(data) {
-							$('input[student_no=student_no]').text("Disable");	
+							
+							$this.val("Disable");
+							$this.off("click").on("click",disable_handler);
+							$this.removeClass("Activate_button").addClass("Disable_button");
 						}
 					});
 				}
@@ -147,10 +153,11 @@
 
 			function disable_handler()
 			{
+				$this = $(this);
 				var username = $(this).attr('username');
 				var student_no = $(this).attr('student_no');
 				var email = $(this).attr('email');
-				var constr = "Are you sure you want to continue?\nUsername: "+username+"\nStudent Number: "+student_no+"\nE-mail: "+email;
+				var constr = "Are you sure you want to Disable?\nUsername: "+username+"\nStudent Number: "+student_no+"\nE-mail: "+email;
 				if(confirm(constr))
 				{
 					$.ajax({
@@ -159,8 +166,9 @@
 						dataType : "html",
 						async : true,
 						success: function(data) {
-							console.log("ajax success");
-
+							$this.val("Enable");
+							$this.off("click").on("click",enable_handler);
+							$this.removeClass("Disable_button").addClass("Enable_button");
 						}
 					});
 				}
@@ -168,10 +176,11 @@
 
 			function enable_handler()
 			{
+				$this = $(this);
 				var username = $(this).attr('username');
 				var student_no = $(this).attr('student_no');
 				var email = $(this).attr('email');
-				var constr = "Are you sure you want to continue?\nUsername: "+username+"\nStudent Number: "+student_no+"\nE-mail: "+email;
+				var constr = "Are you sure you want to Enable?\nUsername: "+username+"\nStudent Number: "+student_no+"\nE-mail: "+email;
 				if(confirm(constr))
 				{
 					$.ajax({
@@ -180,15 +189,18 @@
 						dataType : "html",
 						async : true,
 						success: function(data) {
-							console.log("ajax success");
+							$this.val("Disable");
+							$this.off("click").on("click",disable_handler);
+							$this.removeClass("Enable_button").addClass("Disable_button");
 						}
 					});
 				}
 			}
 
+			//bind the corresponding functions to the click events of the appropriate buttons
 			$('.Activate_button').on("click",activate_handler);
 			$('.Enable_button').on("click",enable_handler);
 			$('.Disable_button').on("click",disable_handler);
-			
+				
 		</script>
 <?php //end of file enable_disable_view ?>

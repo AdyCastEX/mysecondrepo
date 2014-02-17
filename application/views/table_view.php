@@ -40,10 +40,12 @@
                                             echo "<span><a ";
 
                                             // Lend , Return Button
+
+                                            /* edit by Edzer Padilla start */
                                             if ($row->status == "reserved")  echo "bookno='{$row->book_no}' class='lendButton' >Lend</a>";
                                             elseif ($row->status == "borrowed") echo "bookno='{$row->book_no}' class = 'receivedButton'>Return</a>";
                                             else echo "'>(" . $row->status . ")";
-
+                                            /* edit end */
                                             echo "</span>";
 
                                             
@@ -89,48 +91,51 @@
 
 </table>
 </div>
-<script> // Edzer Padilla
- $('.lendButton').on('click', lendClick);
- $('.receivedButton').on('click', receivedClick);
+<script> 
 
-function lendClick(){
-    $this = $(this);
-    $bookno = $this.attr('bookno');
-    $bookauthor = $this.closest('td').find('[book_data = author]').text()
-    $booktitle = $this.closest('td').find('[book_data = book_title]').text()
-    if (confirm('Are you sure you want to lend: \n'+$booktitle+'\n'+$bookno+'\n'+$bookauthor+"?")) {    
-         $.ajax({
-            url: 'index.php/update_book/lend/',
-            data: {id:$bookno},
-            success: function(data) { 
-                $this.text('Return');
-                $this.off('click').on('click', receivedClick);            }
-        });      
+     //Script author : Edzer Josh V. Padilla
+     //Description : AJAX used to call the lend and receieve modules and update the buttons of the page dynamically
+     $('.lendButton').on('click', lendClick);
+     $('.receivedButton').on('click', receivedClick);
 
-    } else {
-    // Do nothing!
+    function lendClick(){
+        $this = $(this);
+        $bookno = $this.attr('bookno');
+        $bookauthor = $this.closest('td').find('[book_data = author]').text()
+        $booktitle = $this.closest('td').find('[book_data = book_title]').text()
+        if (confirm('Are you sure you want to lend: \n'+$booktitle+'\n'+$bookno+'\n'+$bookauthor+"?")) {    
+             $.ajax({
+                url: 'index.php/update_book/lend/',
+                data: {id:$bookno},
+                success: function(data) { 
+                    $this.text('Return');
+                    $this.off('click').on('click', receivedClick);            }
+            });      
+
+        } else {
+        // Do nothing!
+        }
+
     }
 
-}
-
- function receivedClick(){
-    $this = $(this);
-    $bookno = $this.attr('bookno');
-    $bookauthor = $this.closest('td').find('[book_data = author]').text()
-    $booktitle = $this.closest('td').find('[book_data = book_title]').text()
-     if (confirm('Are you sure you want to return: \n'+$booktitle+'\n'+$bookno+'\n'+$bookauthor+"?")) {
-         $.ajax({
-            url: 'index.php/update_book/received/',
-            data: {id:$bookno},
-            success: function(data) { 
-                $this.text('(available)');
-                $this.off('click');
-           // $this.addClass('lendButton'); 
-            }
-        });        
-    } else {
-    // Do nothing!
-    }
- } 
+     function receivedClick(){
+        $this = $(this);
+        $bookno = $this.attr('bookno');
+        $bookauthor = $this.closest('td').find('[book_data = author]').text()
+        $booktitle = $this.closest('td').find('[book_data = book_title]').text()
+         if (confirm('Are you sure you want to return: \n'+$booktitle+'\n'+$bookno+'\n'+$bookauthor+"?")) {
+             $.ajax({
+                url: 'index.php/update_book/received/',
+                data: {id:$bookno},
+                success: function(data) { 
+                    $this.text('(available)');
+                    $this.off('click');
+               // $this.addClass('lendButton'); 
+                }
+            });        
+        } else {
+        // Do nothing!
+        }
+     } 
 </script>
 

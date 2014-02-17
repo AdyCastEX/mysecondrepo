@@ -1,5 +1,10 @@
 <?php 
 
+/*
+	Author : Edzer Josh V. Padilla
+	File Description : a model used to handle database operations for lending and receiving of books
+*/
+
 Class Update_book_model extends CI_Model{
 	
 	function lend($data){

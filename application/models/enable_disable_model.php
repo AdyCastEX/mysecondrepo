@@ -1,7 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /*
 	Author: Billy Joel Arlo T. Zarate
-	Class for queries and database management
+	File Description : A model used to handle database transactions for activating,enabling and disabling users
 */
 class Enable_disable_model extends CI_Model {
 

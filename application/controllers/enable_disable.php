@@ -1,7 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /*
 	Author: Billy Joel Arlo T. Zarate
-	This document is the controller of the search module for user accounts
+	File Description : This document is the controller of the search module for user accounts
 */
 class Enable_disable extends CI_Controller {
 
@@ -51,6 +51,19 @@ class Enable_disable extends CI_Controller {
 		$this->load->view('enable_disable_view', $array);	//loads the view with the results
 	}
 
+
+	/*
+		sample ajax call
+		$.ajax({
+			url : "http://localhost/mysecondrepo/index.php/enable_disable/activate/"+ username +"/"+ student_no + "/" + email,
+			type : 'POST',
+			dataType : "html",
+			async : true,
+			success: function(data) {}
+		});
+				
+	*/
+
 	public function activate($username, $student_no, $email)
 	{
 		/*
@@ -63,12 +76,27 @@ class Enable_disable extends CI_Controller {
 		$this->load->model('enable_disable_model');//loads model
 		if($this->enable_disable_model->activate($username, $student_no, $email))//calls function activate
 			$this->enable_disable_model->log($admin, $username, $email, $action);//calls function log from model if activate returns true
+
+		//will not be used if this function was called using AJAX	
 		$result = $this->enable_disable_model->runQuery($this->session->userdata('sql'));	//refreshes
 		$array['result'] = $result;															//page
 		$this->load->view('enable_disable_view', $array);									//with same query
+
+		//used for AJAX implementation
 		$json = array('success' => $success);
 		echo json_encode($json);
 	}
+
+	/*
+		sample ajax call
+		$.ajax({
+			url : "http://localhost/mysecondrepo/index.php/enable_disable/disable/"+ username +"/"+ student_no + "/" + email,
+			type : 'POST',
+			dataType : "html",
+			async : true,
+			success: function(data) {}
+		});
+	*/
 
 	public function enable($username, $student_no, $email)
 	{
@@ -81,12 +109,27 @@ class Enable_disable extends CI_Controller {
 		$this->load->model('enable_disable_model');//loads model
 		if($this->enable_disable_model->enable($username, $email))//calls function enable from model
 			$this->enable_disable_model->log($admin, $username, $email, $action);//calls function log from model if enable returns true
+		
+		//will not be used if this function was called using AJAX
 		$result = $this->enable_disable_model->runQuery($this->session->userdata('sql'));	//refreshes
 		$array['result'] = $result;															//page
 		$this->load->view('enable_disable_view', $array);									//with the same query
+		
+		//return value for AJAX implementation
 		$json = array('success' => $success);
 		echo json_encode($json);
 	}
+
+	/*
+		sample ajax call
+		$.ajax({
+			url : "http://localhost/mysecondrepo/index.php/enable_disable/enable/"+ username +"/"+ student_no + "/" + email,
+			type : 'POST',
+			dataType : "html",
+			async : true,
+			success: function(data) {}
+		});
+	*/
 
 	public function disable($username, $student_no, $email)
 	{
@@ -99,9 +142,13 @@ class Enable_disable extends CI_Controller {
 		$this->load->model('enable_disable_model');//loads model
 		if($this->enable_disable_model->disable($username, $student_no, $email))//calls function disable from model
 			$this->enable_disable_model->log($admin, $username, $email, $action);//calls function log from model if disable returns true
+		
+		//will not be used if this function was called using AJAX
 		$result = $this->enable_disable_model->runQuery($this->session->userdata('sql'));	//refreshes
 		$array['result'] = $result;															//page
 		$this->load->view('enable_disable_view', $array);									//with same query
+
+		//return value for AJAX implementation
 		$json = array('success' => $success);
 		echo json_encode($json);
 	}

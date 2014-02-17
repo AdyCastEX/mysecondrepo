@@ -1,6 +1,20 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+/*
+	Author : Edzer Josh V. Padilla
+	Description : a controller that is used to handle lending and returning of books
+*/
+
 class Update_book extends CI_Controller {
+
+	/*
+		sample ajax call
+		$.ajax({
+            url: 'index.php/update_book/lend/',
+            data: {id:$bookno},
+            success: function(data) {}
+        });      
+	*/
 
 
 	public function lend(){
@@ -17,6 +31,16 @@ class Update_book extends CI_Controller {
 		$this->update_book_model->lend($data);              //we call the lend function which updates the status of the book from reserved to borrowed
 		$this->update_book_model->insertLend($data);			//we call this function to insert into the log the whole transaction
 	}
+
+	/*
+		sample ajax call
+		$.ajax({
+         	url: 'index.php/update_book/received/',
+            data: {id:$bookno},
+            success: function(data) {}
+            }); 
+	*/
+
 	public function received(){
 	
 		$data['book_no'] = $_GET['id'];   // temporary data. actual data must be pass via onClick in the actual implementation
